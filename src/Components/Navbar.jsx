@@ -1,18 +1,23 @@
 import React, { useState } from "react";
+import { auth } from "../firebase-config";
+import useGetUser from "./getUser";
+import { signOut } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const currentUser = useGetUser();
+  const navigate = useNavigate();
+  
   const handleOnClick = () => {
     const ele = document.querySelector(".nav-btn label");
     if (ele) {
       ele.click();
     }
   };
-
-  const [user, setuser] = useState(false);
-
-  const createUser = () => {
-    setuser(true);
-  };
+  const handleOnSignOut = async (e) =>{
+    await signOut(auth);
+    navigate("/");
+  }
 
   return (
     <div className="nav w-screen flex flex-row shadow-lg h-16 items-center fixed z-50 bg-white bg-opacity-60 backdrop-blur-md">
@@ -22,7 +27,7 @@ const Navbar = () => {
           DocOnCall
         </div>
       </a>
-      <div class="nav-btn">
+      <div className="nav-btn">
         <label for="nav-check">
           <span></span>
           <span></span>
@@ -45,17 +50,17 @@ const Navbar = () => {
             </div>
           </a>
         </div>
-        {!user ? (
+        {!currentUser ? (
           <>
             <div className="flex flex-row md:ml-16 md:mt-0 mt-8 gap-x-4 font-medium align-middle justify-center content-center text-center items-center">
-              <a href="/patient_login" onClick={createUser}>
+              <a href="/patient_login">
                 <button className="bg-teal-600 transition-all text-white hover:bg-white hover:text-teal-600 hover:border-teal-600 hover:border-2 w-32 h-8 px-4 rounded flex flex-row align-middle justify-center content-center text-center items-center">
                   Login
                 </button>
               </a>
             </div>
             <div className="flex flex-row md:ml-8 md:mt-0 mt-8 gap-x-4 font-medium align-middle justify-center content-center text-center items-center">
-              <a href="/patient_signup" onClick={createUser}>
+              <a href="/patient_signup">
                 <button className="bg-teal-600 transition-all text-white hover:bg-white hover:text-teal-600 hover:border-teal-600 hover:border-2 w-32 h-8 px-4 rounded flex flex-row align-middle justify-center content-center text-center items-center">
                   Sign Up
                 </button>
@@ -64,9 +69,10 @@ const Navbar = () => {
           </>
         ) : (
           <div className="flex flex-row md:ml-16 md:mt-0 mt-8 gap-x-4 font-medium align-middle justify-center content-center text-center items-center">
-            <a href="/patient_login" onClick={createUser}>
-              <button className="bg-teal-600 transition-all text-white hover:bg-white hover:text-teal-600 hover:border-teal-600 hover:border-2 w-32 h-8 px-4 rounded flex flex-row align-middle justify-center content-center text-center items-center">
-                Consult
+            <a href="/">
+              <button className="bg-teal-600 transition-all text-white hover:bg-white hover:text-teal-600 hover:border-teal-600 hover:border-2 w-32 h-8 px-4 rounded flex flex-row align-middle justify-center content-center text-center items-center"
+              onClick={handleOnSignOut}>
+                Sign Out
               </button>
             </a>
           </div>
