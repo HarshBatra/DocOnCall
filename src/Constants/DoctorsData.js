@@ -1,0 +1,88 @@
+const DoctorsData = [
+  {
+    id: 1,
+    name: "Dr. Strange",
+    degree: "MD (Dietician)",
+    imgURL: require("../Assets/doctor.jpg"),
+    experience: 10,
+  },
+  {
+    id: 2,
+    name: "Dr. ABC",
+    degree: "MD (Gynaecology)",
+    imgURL: require("../Assets/doctor.jpg"),
+    experience: 8,
+  },
+  {
+    id: 3,
+    name: "Dr. XYZ",
+    degree: "MBBS",
+    imgURL: require("../Assets/doctor.jpg"),
+    experience: 4,
+  },
+  {
+    id: 4,
+    name: "Dr. PYQ",
+    degree: "MD (Dermatology)",
+    imgURL: require("../Assets/doctor.jpg"),
+    experience: 6,
+  },
+  {
+    id: 1,
+    name: "Dr. Strange",
+    degree: "MD (Dietician)",
+    imgURL: require("../Assets/doctor.jpg"),
+    experience: 10,
+  },
+  {
+    id: 2,
+    name: "Dr. ABC",
+    degree: "MD (Gynaecology)",
+    imgURL: require("../Assets/doctor.jpg"),
+    experience: 8,
+  },
+  {
+    id: 3,
+    name: "Dr. XYZ",
+    degree: "MBBS",
+    imgURL: require("../Assets/doctor.jpg"),
+    experience: 4,
+  },
+  {
+    id: 4,
+    name: "Dr. PYQ",
+    degree: "MD (Dermatology)",
+    imgURL: require("../Assets/doctor.jpg"),
+    experience: 6,
+  },
+  {
+    id: 1,
+    name: "Dr. Strange",
+    degree: "MD (Dietician)",
+    imgURL: require("../Assets/doctor.jpg"),
+    experience: 10,
+  },
+  {
+    id: 2,
+    name: "Dr. ABC",
+    degree: "MD (Gynaecology)",
+    imgURL: require("../Assets/doctor.jpg"),
+    experience: 8,
+  },
+  {
+    id: 3,
+    name: "Dr. XYZ",
+    degree: "MBBS",
+    imgURL: require("../Assets/doctor.jpg"),
+    experience: 4,
+  },
+  {
+    id: 4,
+    name: "Dr. PYQ",
+    degree: "MD (Dermatology)",
+    imgURL: require("../Assets/doctor.jpg"),
+    experience: 6,
+  },
+];
+
+export default DoctorsData;
