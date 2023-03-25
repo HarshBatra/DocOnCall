@@ -4,10 +4,7 @@ import SpecialtiesData from "../Constants/SpecialtiesData";
 function Card(props) {
   return (
     <a href="/doctors">
-      <div
-        className="flex flex-col justify-center items-center"
-        id="Specialties"
-      >
+      <div className="flex flex-col justify-center items-center">
         <div className="rounded-[50%] bg-white hover:bg-teal-100 cursor-pointer drop-shadow-lg md:h-24 md:w-24 h-16 w-16 mb-4 flex items-center justify-center transition grow">
           <img
             src={props.img}
@@ -30,7 +27,7 @@ const Specialties = () => {
         <div className="flex flex-col justify-center items-center pb-6 md:pb-10 mx-10">
           <h1 className="text-center text-3xl font-semibold text-gray-500">
             Choose from{" "}
-            <span className="text-teal-500 font-bold">Specialties</span>
+            <span className="text-teal-500 font-bold">Symptoms</span>
           </h1>
           <span className="w-44 h-0.5 m-6 bg-gradient-to-r from-white to-white via-teal-500"></span>
         </div>
