@@ -2,6 +2,7 @@ import React,{useRef,useState} from "react";
 import { auth, googleProvider } from "../firebase-config";
 import { signInWithPopup, updateProfile, createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const SignUp = () => {
   const emailRef = useRef();
@@ -19,12 +20,35 @@ const SignUp = () => {
     createUserWithEmailAndPassword(auth, emailRef.current.value, passRef.current.value)
       .then((userCredential)=>{
         updateProfile(auth.currentUser, {
-          displayName: nameRef.current.value, photoURL: null
+          displayName: nameRef.current.value,
         }).then(() => {
-          setUser(userCredential.user);
           console.log("user : ",userCredential.user);
-          alert("Successfully Sign up");
-          navigate("/patient_login");
+
+          auth?.currentUser?.getIdToken(true).then((token)=>{
+            axios.post(`${process.env.REACT_APP_BackendAPI}/api/setclaims`,
+            {
+              uid:userCredential.user.uid,
+              isDoc:false
+            })
+            .then(res=>{
+              console.log(res);
+            })
+            .catch(err=>{
+              console.log(err);
+            });
+          });
+
+          axios.post(`${process.env.REACT_APP_BackendAPI}/api/users`,
+          {
+            displayName:nameRef.current.value,
+            email:emailRef.current.value,
+            isDoc:false,
+          })
+          .then(res=>console.log(res))
+          .catch(err=>alert(err));
+
+          // alert("Successfully Sign up");
+          navigate("/");
         }).catch((err) => {
           console.log(err.message);
           setErrorMsg(err.message);
@@ -73,6 +97,7 @@ const SignUp = () => {
             <input
               className="font-medium text-xs p-3 rounded-full focus:outline-none"
               placeholder="eg. 123456"
+              type="password"
               ref={passRef}
             />
           </div>

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const currentUser = useGetUser();
+  console.log(currentUser);
   const navigate = useNavigate();
 
   const handleOnClick = () => {
@@ -28,7 +29,7 @@ const Navbar = () => {
         </div>
       </a>
       <div className="nav-btn">
-        <label for="nav-check">
+        <label htmlFor="nav-check">
           <span></span>
           <span></span>
           <span></span>

@@ -7,10 +7,11 @@ import SignUp from "./Pages/SignUp";
 import DocLogin from "./Pages/DocLogin";
 import DocSignUp from "./Pages/DocSignUp";
 import Payment from "./Pages/Payment";
-import VideoCall from "./Pages/VideoCall";
 import Doctors from "./Pages/Doctors";
 import ScrollToTop from "./Components/ScrollToTop";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Checkout from "./Pages/stripe";
+import VideoCall from "./Pages/VideoCall";
 
 const App = () => {
   return (
@@ -25,8 +26,9 @@ const App = () => {
           <Route path="/doctor_login" element={<DocLogin />} />
           <Route path="/doctor_signup" element={<DocSignUp />} />
           <Route path="/payment" element={<Payment />} />
-          <Route path="/video_call" element={<VideoCall />} />
           <Route path="/doctors" element={<Doctors />} />
+          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/video_call" element={<VideoCall />} />
         </Routes>
         <Footer />
       </Router>

@@ -57,6 +57,7 @@ const Login = () => {
             <input
               className="font-medium text-xs p-3 rounded-full focus:outline-none"
               placeholder="eg. 123456"
+              type="password"
               ref={passRef}
             />
           </div>
