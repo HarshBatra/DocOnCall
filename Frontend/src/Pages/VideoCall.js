@@ -69,7 +69,7 @@ const VideoCall = ()=>{
 	return (
 		<div className="pt-20">
     		<div className="container">
-    			<div className="flex">
+    			<div className="flex w-full justify-around items-center">
     				<div className="video">
     					{stream &&  <video playsInline muted ref={myVideo} autoPlay style={{ width: "300px" }} />}
     				</div>
@@ -83,7 +83,7 @@ const VideoCall = ()=>{
     				</div>
     			</div>
     			<div className="myId">
-    				<div className="call-button">
+    				<div className="call-button flex justify-center">
     					{callAccepted && !callEnded ? (
     						<Button variant="contained" color="secondary" onClick={leaveCall}>
     							End Call
@@ -93,7 +93,7 @@ const VideoCall = ()=>{
     							<PhoneIcon fontSize="large" />
     						</IconButton>
     					)}
-    					{user?.displayName}
+    					
     				</div>
     			</div>
     		</div>
