@@ -1,22 +1,53 @@
 import React from "react";
 import SpecialtiesData from "../Constants/SpecialtiesData";
+import { useAuth } from "../contexts/contextsApi";
+import { useNavigate } from "react-router-dom";
+import SpecializationData from "../Constants/SpecializationData";
+import axios from "axios";
 
 function Card(props) {
+  const { setCategory, setSpecialization } = useAuth();
+  const navigate = useNavigate();
+  const handleOnClick = (e)=>{
+    setCategory(props.category);
+    setSpecialization(props.specialization);
+    navigate("/doctors")
+  }
+
+  // const fn = () =>{
+  //   const data = SpecializationData;
+  //   data.forEach((val, idx)=>{
+  //     for(let i=0;i<5;i++){
+  //       axios.post(`${process.env.REACT_APP_BackendAPI}/api/users`,{
+  //         displayName:`Doctor ${idx}${i}`,
+  //         email:`Doctor@${idx}${i}gmail.com`,
+  //         isDoc:true,
+  //         experience:`${idx}${i}`,
+  //         specialization : val.specialization,
+  //         degree:`MBBS${idx}${i}`
+  //       })
+  //       .then(res=>console.log(res))
+  //       .catch(err=>alert(err));
+  //     }
+  //   })
+  // }
+
+
   return (
-    <a href="/doctors">
+    <h1 onClick={handleOnClick}>
       <div className="flex flex-col justify-center items-center">
         <div className="rounded-[50%] bg-white hover:bg-teal-100 cursor-pointer drop-shadow-lg md:h-24 md:w-24 h-16 w-16 mb-4 flex items-center justify-center transition grow">
           <img
             src={props.img}
-            alt={props.name}
+            alt={props.category}
             className="md:p-4 p-3 relative drop-shadow-md"
           />
         </div>
         <div className="font-light md:font-medium text-xs md:text-sm text-teal-500 mb-8 w-full text-center px-2">
-          {props.name}
+          {props.category}
         </div>
       </div>
-    </a>
+    </h1>
   );
 }
 
@@ -33,7 +64,7 @@ const Specialties = () => {
         </div>
         <div className="w-auto h-auto grid md:grid-cols-6 grid-cols-3 mx-6 align-top items-start">
           {SpecialtiesData.map((icon) => (
-            <Card key={icon.key} img={icon.icon} name={icon.category} />
+            <Card key={icon.key} img={icon.icon} category={icon.category} specialization={icon.specialization} />
           ))}
         </div>
       </div>

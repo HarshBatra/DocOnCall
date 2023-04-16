@@ -1,15 +1,27 @@
 import React from "react";
 import SpecializationData from "../Constants/SpecializationData";
+import { useAuth } from "../contexts/contextsApi";
+import { useNavigate } from "react-router-dom";
+import { createSearchParams } from "react-router-dom";
 
 function Card(props) {
+  const {setSpecialization} = useAuth();
+  const navigate = useNavigate();
   return (
-    <a href="/doctors">
+    <h1 onClick={()=>{
+      setSpecialization(props.name);
+      const params = { specialization:props.name };
+      navigate({
+        pathname:"/doctors",
+        search: `?${createSearchParams(params)}`
+      });
+    }}>
       <div className="rounded-lg bg-white hover:bg-teal-100 cursor-pointer drop-shadow-lg my-4 md:mx-8 mx-4 flex items-center justify-center transition grow p-4">
         <div className="font-light md:font-medium text-xs md:text-sm text-teal-500 w-full text-center">
           {props.name}
         </div>
       </div>
-    </a>
+    </h1>
   );
 }
 
@@ -26,7 +38,7 @@ const DoctorSpeciality = () => {
         </div>
         <div className="w-auto h-auto grid md:grid-cols-4 grid-cols-2 mx-6 align-top items-start">
           {SpecializationData.map((icon) => (
-            <Card key={icon.key} name={icon.name} />
+            <Card key={icon.key} name={icon.specialization} />
           ))}
         </div>
       </div>

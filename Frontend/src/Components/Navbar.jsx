@@ -1,13 +1,52 @@
-import React from "react";
+import React, { useEffect } from "react";
+import Button from "@material-ui/core/Button"
 import { auth } from "../firebase-config";
-import useGetUser from "./getUser";
 import { signOut } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../contexts/contextsApi";
+import io from "socket.io-client";
+import { answerCall } from "../Pages/VideoCall";
+export const socket = io.connect(`${process.env.REACT_APP_BackendAPI}`)
 
 const Navbar = () => {
-  const currentUser = useGetUser();
-  console.log(currentUser);
+  const { 
+    user, 
+    setMe, 
+    receivingCall, 
+    callAccepted, 
+    name, 
+    stream,
+    caller,
+    callerSignal, 
+    userVideo, 
+    connectionRef,
+    setCallAccepted,
+    setReceivingCall,
+    setCaller,
+    setCallerSignal,
+    setName,
+    setConnectedWith,
+  } = useAuth();
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    socket.emit("sendid");
+    socket.on("me", (id) => {
+			setMe(id);
+      user.getIdTokenResult().then((token)=>{
+        if(user && token?.claims?.isDoc) {
+          socket.emit("active", {email:user.email, socketId:id});
+        }
+      })
+		})
+    socket.on("callUser", (data) => {
+			setReceivingCall(true);
+			setCaller(data.from);
+			setName(data.name);
+			setCallerSignal(data.signal);
+			setConnectedWith(data.from);
+		})
+  },[]);
 
   const handleOnClick = () => {
     const ele = document.querySelector(".nav-btn label");
@@ -15,6 +54,7 @@ const Navbar = () => {
       ele.click();
     }
   };
+
   const handleOnSignOut = async (e) => {
     await signOut(auth);
     navigate("/");
@@ -51,7 +91,7 @@ const Navbar = () => {
             </div>
           </a>
         </div>
-        {!currentUser ? (
+        {!user ? (
           <>
             <div className="flex flex-row md:ml-16 md:mt-0 mt-8 gap-x-4 font-medium align-middle justify-center content-center text-center items-center">
               <a href="/patient_login">
@@ -81,6 +121,18 @@ const Navbar = () => {
           </div>
         )}
       </div>
+      <div className="absolute right-6 top-[5rem]">
+				{receivingCall && !callAccepted ? (
+						<div className="flex flex-col justify-center align-middle">
+						<h1 >{name} is calling...</h1>
+						<Button variant="contained" color="primary" onClick={()=>answerCall({
+              setCallAccepted, stream, caller, userVideo, callerSignal, connectionRef, navigate
+            })}>
+							Answer
+						</Button>
+					</div>
+				) : null}
+			</div>
     </div>
   );
 };
